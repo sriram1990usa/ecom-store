@@ -1,0 +1,450 @@
+
+
+PYDJANGO 
+MYSITE2
+https://www.youtube.com/watch?v=APESx65wpBc&list=PLdBwVRHjcI__NWxctXUSLz1Gg2Mb-B-O-
+NOTES
+-------------------------------------------------------------------------------------------------------------------------
+======================================================================
+download python 3.10.5 or latest stable ver for windows
+
+
+D:\gm\pydjango> python   -- to know ver--------------
+>>> exit()------------------------------------------------------
+
+>pip install virtualenv-------------------------------------
+>virtualenv venv-------------------------------------------
+upgrade pip
+pydjango/venv/scripts>activate---------------------
+(venv> ..pydjango>pip install django------------------
+
+upgrade pip
+>django-admin
+
+(venv) ...pydjango>django-admin startproject mysite .--------------------
+(venv) ...pydjango>django-admin startapp store------------------------
+(venv)....pydnajgo>manage.py runserver-----------------------------
+
+
+http://localhost:8000
+http://127.0.0.0.1:8000
+
+(venv) ...mysite>manage,py createsuperuser-----------------------
+(venv) ...mysite>manage.py makemigrations------------------------------
+(venv) ...mysite>manage.py migrate------------------------------------
+
+sqliteonline.com
+file open
+d:\gm\pydjango\mysite>db or dbsqlite3
+auth_user
+select * from auth_user
+
+() ..mysite>manage.py; createsuperuser--------------------------------
+username
+email
+pwd
+
+-------------------------------------------------------------------------------------------------------------------
+=================================================================
+mysite>
+mysite
+store
+images
+uploads
+venv
+.manage.py
+.db.sqlite3
+-----------------
+
+pkg
+store>
+__init.py__
+__pycache__
+middleware
+migrations
+models
+templates
+views
+tenokate,tag
+.admin.py
+.apps.py
+.tests.py
+.urls.py
+-----------------
+
+pkg
+middleware>
+__init.py
+.auth.py
+--------------
+
+pkg
+models.py>
+__init__.py
+.category.py
+.customer.py
+.orders.py
+.product.py
+
+--------------
+
+mysite>
+.__init__.py
+__pycache__
+.asgi.py
+.settilgs.py
+.urls.py
+.wsgi.py
+-------------------------------
+
+images>
+all jpg jpeg to upload
+--------------------------------------
+
+uploads>
+products
+all uploaded jpg jpeg
+---------------------------------
+
+venv
+lib
+scripts
+.gitignore
+.pyvev.
+---------------------------------
+
+templates>
+base.html
+index.html
+signup.html
+login.html
+logout.html
+cart.html
+orders.html
+-------------------------
+
+pkg
+templatetages
+.cart.py
+custom-filter.py
+------------------------
+
+views>
+.home.py
+.signup.py
+.login.py
+orders.py
+cart.py
+checkout.py
+---------------------------------------------------------------------------------------------------------------------
+
+==============================================================
+PRINT MESSAGE FROM VIEWS.PY- FN INDEX
+
+mysite2(project)
+urls.py
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('store.urls'))
+]
+-----------------------------------------------
+
+urls.py under store app
+
+from django.urls import path
+from .views import index
+
+urlpatterns = [
+   path('', index)
+]
+---------------------------------------------------
+
+views.py
+
+def index(request):
+    print('message from views.py')   
+--------------------------------------------------
+
+proj2>manage.py runserver
+in cmd > message from views.py  (ok ok)
+in localhost:8000 > The view store.views.index did not return an HttpResponse obj. It returned none instead - ok ok
+---------------------------------------------------------------------------------------------------------------------------
+====================================================================
+HTTP RESPONSE OF VIEWS.PY-FN INDEX IN LOCAL HOST
+
+create index.html under templates
+<h1> from index.html page </h1>
+---------------------------------------------
+views.py
+from django.http import HttpResponse
+
+def index(request):
+      return HttpResponse('<h1>index page from views</h1>')
+-------------------------------------------------------
+project urls.py and app urls.py are same
+
+proj2> manage.py runserver
+in cmd > message from views.py (ok ok)
+localhost:8000 > index page from views
+======================================================================
+REQUEST AND RENDER INDEX.HTML
+views.py
+from django.shortcuts import render
+
+project urls.py and app urls.py are same
+
+def index(request):
+    return render(request, 'index.html')
+---------------------------------------------------------
+navbar contents from base.html extended at start in index.html
+
+<!doctype html>
+<html lang="en"> 
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <title>E Store</title>
+</head> 
+ 
+  <body>
+   
+    <nav class="navbar navbar-expand-lg navbar-light bg-light ml-5">
+      <a class="navbar-brand" href="/">E Shop</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Store <span class="sr-only">(current)</span></a>
+          </li>        
+        </ul>
+
+        <ul class="navbar-nav my-2 my-lg-0 mr-5" >
+          <li class="nav-item">
+            <a class="nav-link" href="/cart">Cart 
+              <span class="badge badge-info"></span>
+              <span class="sr-only">(current)</span></a>
+          </li> 
+          <li class="nav-item">
+            <a class="nav-link" href="/orders">Orders <span class="sr-only">(current)</span></a>
+            <span class="badge badge-info"></span>
+            <span class="sr-only">(current)</span></a>
+
+          </li>  
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout <span class="sr-only">(current)</span></a>
+          </li>  
+         
+          <li class="nav-item">
+              <a class="nav-link" href="/signup">Signup <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/login">Login <span class="sr-only">(current)</span></a>
+          </li>  
+
+        </ul>
+      </div>
+    </nav>    
+
+    {% block content %} {% endblock %}   <!---contents of div from index.html goes inside block -->
+     
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" 
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" 
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" 
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
+      crossorigin="anonymous"></script>
+
+  </body>
+</html>
+------------------------------------------------------------------------
+index.html
+
+{% extends 'base.html' %}
+
+ {% block content %}
+
+  <!--body-->
+  <div>
+    <h1 class=""> navbar contents from base.html</h1>
+    <h1 class=""> page contents from index.html</h1>
+  </div>
+
+ {% endblock %}
+
+
+======================================================================
+CUSTOMER MODEL
+-----------------------------
+models
+-------------------------------
+views.py
+
+--------------------------------
+urls.py
+
+-------------------------------
+__init__.py
+
+------------------------------
+signup.html
+
+=====================================================================
+SIGNUP
+
+-----------------------------
+views(pkg)>signup.py
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.contrib.auth.hashers import make_password, check_password
+from store.models.customer import Customer
+from django.views import View
+
+
+class Signup(View):
+    def get(self, request):
+         return render(request, 'signup.html')
+    def post(self, request):
+        postData = request.POST
+        firstname = postData.get('firstname')
+        lastname = postData.get('lastname')
+        phone = postData.get('phone')
+        email = postData.get('email')
+        password = postData.get('password')
+
+        value = {
+            'firstname': firstname,
+            'lastname': lastname,
+            'phone': phone,
+            'email': email
+        }
+        error_message = None
+
+        customer = Customer(firstname=firstname,
+                            lastname=lastname,
+                            phone=phone,
+                            email=email,
+                            password=password)
+        error_message = self.validateCustomer(customer)
+        
+        if not error_message:
+            print(firstname, lastname, phone, email)
+            customer.password = make_password(customer.password)
+            customer.save()
+            customer.register()
+
+            return redirect('homepage')
+        else:
+            data = {
+                'error': error_message,
+                'values': value
+            }
+        return render(request, 'signup.html', data)       
+   
+    def validateCustomer(self, customer):
+        error_message = None;
+        if len(customer.firstname) < 4:
+            error_message = "firstname must be >= 4 char"
+        elif len(customer.lastname) < 4:
+            error_message = "lastname must be <= 4 char"
+        elif len(customer.phone) < 10:
+            error_message = "phone num must be >=10 char"
+        elif len(customer.email) < 4:
+            error_message = "email must be >= 5 char"
+        elif len(customer.password) < 4:
+            error_message = "password must be >= 6 char"
+        #elif customer.isExists():
+        #    error_message = "email exists"
+
+        return error_message   
+--------------------------------
+urls.py
+from django.urls import path
+from .views.home import Index
+from .views.signup import Signup
+
+urlpatterns = [
+   path('', Index.as_view(), name='homepage'),
+   path('signup', Signup.as_view(), name='signup')
+ ]
+-------------------------------
+models
+see customer.py under customers
+
+__init__.py
+from .customer import Customer
+------------------------------
+signup.html
+{% extends 'base.html' %}
+
+ {% block content %}
+ <h1> from signup.html</h1>
+  
+  <div class="container">
+    <div class="p-4 m-4">
+      <div class="col-lg-5 mx-auto border rounded pt-4">
+        <h1 class="alert alert-light border rounded">Create your account</h1>
+        <form action="/signup" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="firstname">First Name</label>
+                <input required type="text" name="firstname"
+                   class="form-control form-control-sm" id=""  
+                   value="{{values.firstname}}" placeholder="enter firstname">
+            </div>  
+            <div class="form-group">
+                <label for="lastname">Last Name</label>
+                <input trequired ype="text" name="lastname"
+                   class="form-control form-control-sm" id="" 
+                   value="{{values.lastname}}" placeholder="enter lastname">
+            </div> 
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input required type="text" name="phone"
+                   class="form-control form-control-sm" id=""
+                   value="{{values.phone}}" placeholder="enter phone">
+            </div> 
+            <div>
+              <label for="exampleInputEmail1">Email address</label>
+              <input required type="email" name="email"
+                 class="form-control form-control-sm" id="" 
+                 value="{{values.email}}"  placeholder="enter email">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input required type="password" name="password"
+                 class="form-control form-control-sm" id="" 
+                 placeholder="enter Password">
+            </div>
+            <div class="form-group">
+                <input class="btn btn-sm btn-info" 
+                type="submit" value="Create an account">
+              </div>  
+          </form>
+      </div> 
+    </div> 
+   
+  </div>
+  
+
+ {% endblock %}
+    
+======================================================================
+PRODUCTS
+create models package under store
+create __init__.py
+create products.py 
+--------------------------------------------------------------------------------------------------------------------
