@@ -1,0 +1,60 @@
+{% extends './base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="p-4 m-4">
+      <div class="col-lg-5 mx-auto border rounded pt-4">
+        <h3 class="alert alert-light border rounded">Create an Account</h3>       
+        <form action="/signup" method="post">
+          {% csrf_token %}
+          {% if error %}
+          <div class="alert alert-danger" role="alert">
+              {{error}}
+          </div>
+          {% endif %}
+          
+            <div class="form-group">
+             <label for="firstname">FirstName</label>
+             <input required type="text" name="firstname"
+                id="" class="form-control form-control-sm"
+                value="{{values.firstname}}">
+            </div>     
+        
+           <div class="form-group">
+            <label for="">LastName</label>
+           <input required type="text" name="lastname"
+              id="" class="form-control form-control-sm "
+              value="{{values.lastname}}" >
+          </div>   
+        
+          <div class="form-group">
+            <label for="">Phone</label>
+           <input required type="text" name="phone"
+               id="" class="form-control  form-control-sm"
+               value="{{values.phone}}">
+          </div>  
+        
+          <div class="form-group">
+            <label for="">Email</label>
+           <input required type="email" name="email"
+               id="" class="form-control  form-control-sm"
+               value="{{values.email}}">
+          </div>   
+          
+          <div class="form-group">
+            <label for="">Password</label>
+           <input required type="password" name="password"
+               id="" class="form-control form-control-sm">
+          </div>   
+
+          <div class="form-group">
+            <input class="btn btn-sm btn-info" 
+            type="submit" value="Create an account">
+          </div>  
+        </form> 
+      </div>
+    </div>
+</div>
+
+{% endblock %}

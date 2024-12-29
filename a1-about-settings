@@ -1,0 +1,71 @@
+URL 
+from django.conf import settings
+from django.conf.urls.static import static
+
++ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
++ static(settings.MEDIA_URL, document_root=settings.MEDDIA_ROOT)
+
+Static files or assets: CSS stylesheets, JS files, fonts, images.
+- no processing involved, just served up as is.
+Media files or assets: These are files that a user uploads.
+
+STATIC_URL 
+- prefix or URL prepended to static files 
+- used by templates static method .
+- URL where the user can access your static files from in the browser. 
+- The default is /static/, which means 
+- your files will be available at http://127.0.0.1:8000/static/ 
+- in development mode -- e.g., http://127.0.0.1:8000/static/css/main.css.
+eg:
+settings.py: STATIC_URL = '/static/' &
+html: <link rel="stylesheet" href="{% static 'app/css/style.css' %}" >
+checks the URL in terminal '/static/app/css/style.css'
+- "GET /static/app/css/style.css HTTP/1.1" 404 1816
+
+STATICFILES_DIRS: app level
+By default, static files are stored at the app-level at <APP_NAME>/static/. 
+You can also tell Django to look for static files in additional locations with STATICFILES_DIRS.
+In development mode — python manage.py runserver — 
+
+By default -
+- django tries to find the static file in folders listed in the STATICFILES_DIRS setting.
+- django looks into the first template and static folder inside the app level
+- django looks in the static folder of every installed application in the project. 
+- always prefix the application name in the subfolders
+
+In case of failure to find (in) STATICFILES_DIRS, 
+- Django searches static files in folders listed in STATICFILES_FINDERS setting. 
+- using django.contrib.staticfiles.finders.AppDirectoriesFinder,
+
+STATIC_ROOT 
+In production, must run 'python manage.py collectstatic'
+- it will find all static files in app level STATICFILES_DIRS and copy them into this directory (BASE_DIR /'staticfiles').
+- the absolute path to the directory where your Django application will serve your static files from. 
+- static files are deployed in STATIC_ROOT directory or location
+
+STATIC_URL = '/static/'  
+# STATIC_ROOT = (BASE_DIR /'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATICFILES_DIRS = [BASE_DIR / 'app/static']
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
+FILE FOLDER STRUCTURE 
+ROOT> 
+ROOT>PROJ> 
+ROOT>APP> 
+ROOT>APP>STATIC>APP>CSS>style.css 
+ROOT>APP>STATIC>IMG>dog.png
+ROOT>APP>TEMPLATES>APP>index.html
+
+HTML 
+<link rel="stylesheet" href="{% static 'app/css/style.css' %}" >
+STATIC_ROOT = '/static/'
+GET /static/app/css/style.css
+
+$ python manage.py findstatic app.css
+Found 'app.css' here:
+  /app1/static/app.css
+  /app2/static/app.css
+
+$ python manage.py findstatic app.css --first
+Found 'app.css' here:
+  /app1/static/app.css  
